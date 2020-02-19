@@ -6,18 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <EditText
+        android:id="@+id/editTextForSearching"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/search_a_movie"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.062" />
 
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
+    <Button
+        android:id="@+id/buttonForSearching"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:onClick="startSearching"
+        android:text="@string/go"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextForSearching"
+        app:layout_constraintVertical_bias="0.022" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,60 +30,28 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private ArrayList<Movie> movies;
-    private MovieAdapter movieAdapter;
-    private RequestQueue requestQueue;
+    private EditText editTextForSearching;
+    private Button buttonForSearching;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.hasFixedSize();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        movies = new ArrayList<>();
-        requestQueue = Volley.newRequestQueue(this);
-
-        getMovies();
+        editTextForSearching = findViewById(R.id.editTextForSearching);
+        buttonForSearching = findViewById(R.id.buttonForSearching);
 
     }
 
-    private void getMovies() {
+    public void startSearching(View view) {
+        String movieName = editTextForSearching.getText().toString();
 
-        String url = "http://www.omdbapi.com/?apikey=aaf1fb17&s=superman";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("Search");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                        Movie movie = new Movie();
-                        movie.setTitle(jsonObject.getString("Title"));
-                        movie.setYear(jsonObject.getString("Year"));
-                        movie.setPosterURL(jsonObject.getString("Poster"));
-
-                        movies.add(movie);
-                    }
-
-                    movieAdapter = new MovieAdapter(MainActivity.this, movies);
-                    recyclerView.setAdapter(movieAdapter);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        requestQueue.add(request);
-
+        if (movieName.isEmpty()) {
+            Toast.makeText(this, "Enter the movie name", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(this, SearchMoviesActivity.class);
+            intent.putExtra("movieName", movieName);
+            startActivity(intent);
+        }
     }
 }

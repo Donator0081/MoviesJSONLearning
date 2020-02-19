@@ -40,7 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie currentMovie = movies.get(position);
 
         holder.titleTextView.setText(currentMovie.getTitle());
-        holder.yeartextView.setText(currentMovie.getYear());
+        holder.yearTextView.setText(currentMovie.getYear());
         Picasso.get().load(currentMovie.getPosterURL()).fit().centerInside().into(holder.posterImageView);
     }
 
@@ -53,14 +53,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         ImageView posterImageView;
         TextView titleTextView;
-        TextView yeartextView;
+        TextView yearTextView;
 
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             posterImageView = itemView.findViewById(R.id.posterImageView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
-            yeartextView = itemView.findViewById(R.id.yearTextView);
+            yearTextView = itemView.findViewById(R.id.yearTextView);
 
         }
     }
