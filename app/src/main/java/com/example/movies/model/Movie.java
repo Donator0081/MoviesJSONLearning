@@ -5,6 +5,7 @@ public class Movie {
     private String title;
     private String posterURL;
     private String year;
+    private String imdbID;
 
     public Movie() {
     }
@@ -32,5 +33,13 @@ public class Movie {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getImdbID() {
+        return imdbID;
+    }
+
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 }

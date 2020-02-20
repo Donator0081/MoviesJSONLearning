@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,7 +29,7 @@ public class SearchMoviesActivity extends AppCompatActivity {
     private ArrayList<Movie> movies;
     private MovieAdapter movieAdapter;
     private RequestQueue requestQueue;
-    private String resultOfSeraching;
+    private String resultOfSearching;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class SearchMoviesActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         Intent intent = getIntent();
-        resultOfSeraching = intent.getStringExtra("movieName");
+        resultOfSearching = intent.getStringExtra("movieName");
 
         getMovies();
 
@@ -53,7 +52,7 @@ public class SearchMoviesActivity extends AppCompatActivity {
 
     private void getMovies() {
 
-        String url = "http://www.omdbapi.com/?apikey=aaf1fb17&s=" + resultOfSeraching.toLowerCase();
+        String url = "http://www.omdbapi.com/?apikey=aaf1fb17&s=" + resultOfSearching.toLowerCase();
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -67,6 +66,7 @@ public class SearchMoviesActivity extends AppCompatActivity {
                         movie.setTitle(jsonObject.getString("Title"));
                         movie.setYear(jsonObject.getString("Year"));
                         movie.setPosterURL(jsonObject.getString("Poster"));
+                        movie.setImdbID(jsonObject.getString("imdbID"));
 
                         movies.add(movie);
                     }
